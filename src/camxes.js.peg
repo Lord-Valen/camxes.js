@@ -1,13 +1,3 @@
-//  camxes.js.peg
-//  Copyright (c) 2013, 2014 Masato Hagiwara
-//  https://github.com/mhagiwara/camxes.js
-//
-//  camxes.js can be used, modified, and re-distributed under MIT license.
-//  See LICENSE for the details.
-
-// This is a Parsing Expression Grammar for Lojban.
-// See http://www.pdos.lcs.mit.edu/~baford/packrat/
-// 
 // All rules have the form:
 // 
 // 	name = peg_expression
@@ -26,22 +16,6 @@
 // 8)  () serves to indicate the grouping of the other operators.
 //
 // Longest match wins.
-
-// How to compile using Node.js: (Added by Masato Hagiwara)
-
-// // load peg.js and the file system module
-// > var PEG = require("pegjs")
-// > var fs = require("fs")
-// // read peg and build a parser
-// > var camxes_peg = fs.readFileSync("/path/to/camxes.js.peg").toString();
-// > var camxes = PEG.buildParser(camxes_peg, {cache: true});
-// // test it
-// > camxes.parse("ko'a broda");
-// [ 'text',
-//   [ 'text_1',
-//     [ 'paragraphs', [Object] ] ] ]
-// // write to a file
-// > fs.writeFileSync("/path/to/camxes.js", camxes.toSource());
 
 
 // ___ GRAMMAR ___
@@ -286,6 +260,7 @@ fore_operands = expr:(mex_2+ ) {return _node("fore_operands", expr); }
 //rp_expression = rp_expression rp_expression operator / operand
 
 // Right recursive version.
+// FIXME: Peggy doesn't know what to do with ()
 rp_expression = expr:(operand rp_expression_tail) {return _node("rp_expression", expr); }
 rp_expression_tail = expr:(rp_expression operator rp_expression_tail / ()) {return _node("rp_expression_tail", expr); }
 
