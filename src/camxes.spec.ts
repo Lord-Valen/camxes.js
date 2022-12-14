@@ -1,4 +1,4 @@
-import { camxes } from "./camxes.js";
+import { camxes } from "./camxes";
 
 describe("parser", () => {
     let sut: any;

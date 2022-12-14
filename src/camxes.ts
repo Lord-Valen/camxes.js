@@ -1,10 +1,9 @@
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
-// TODO: Redesign for peggy
-// import { generate } from "peggy";
-//
-// export const camxes = generate(readFileSync(resolve("./src/camxes.js.peg")).toString());
+import path from "node:path";
 // @ts-ignore
 import PEG from "pegjs";
 
-export const camxes = PEG.buildParser(readFileSync(resolve("./src/camxes.js.peg")).toString());
+// TODO: Redesign for peggy
+export const camxes = PEG.buildParser(readFileSync(path.join(__dirname, "/camxes.peg")).toString());
+// ESM
+// export const camxes = PEG.buildParser(readFileSync(resolve("./src/camxes.peg")).toString());

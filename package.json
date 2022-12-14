@@ -5,13 +5,13 @@
     "author": "Lord-Valen",
     "license": "MIT",
     "exports": "./dist/index.js",
-    "type": "module",
+    "type": "commonjs",
     "engines": {
         "node": ">=16.00"
     },
     "bin": "./dist/index.js",
     "scripts": {
-        "build": "tsc",
+        "build": "tsc && cp ./src/camxes.peg ./dist/camxes.peg",
         "build:watch": "tsc -w",
         "test": "NODE_OPTIONS=--experimental-vm-modules jest --passWithNoTests",
         "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch --coverage",
