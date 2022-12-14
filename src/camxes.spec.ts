@@ -1,18 +1,39 @@
-import { Parser } from "peggy";
 import { camxes } from "./camxes.js";
-import { jest } from "@jest/globals";
 
-describe("camxes", () => {
-    let sut: Parser;
+describe("parser", () => {
+    let sut: any;
 
     beforeAll(() => {
         sut = camxes;
     });
 
-    it.todo("parses bridi");
-    // TOOD: Be more specific
-    // it("parses bridi", () => {
-    //     expect(sut.parse("mi lo jbobau cu nelci")).toReturnWith("");
-    //     expect(sut.parse("xu do viska da poi broda")).toReturnWith("");
-    // });
+    it("is defined", () => {
+        expect(sut).toBeDefined();
+        expect(sut.parse).toBeDefined();
+    });
+
+    // TODO: Implement reverse templating
+    it("parses basic jafra", async () => {
+        expect(sut.parse("coi")).toStrictEqual([
+            "text",
+            ["text_part_2",
+                [["free",
+                    ["vocative",
+                        [["COI_clause",
+                            [["COI", "coi"]]]]]]]]]);
+
+        expect(sut.parse("mi nelci")).toStrictEqual([
+            "text",
+            ["text_1",
+                ["paragraphs",
+                    ["paragraph",
+                        ["statement",
+                            ["statement_1",
+                                ["statement_2",
+                                    ["statement_3",
+                                        ["sentence",
+                                            [[Array]],
+                                            ["bridi_tail",
+                                                [Array]]]]]]]]]]]);
+    });
 });
