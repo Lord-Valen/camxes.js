@@ -1,53 +1,42 @@
 {
-  description = "A Lojban parser.";
+  description = "A Lojban parser";
 
   inputs = {
-    dream2nix = {
-      url = "github:nix-community/dream2nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.0.tar.gz";
+
+    devshell.url = "github:numtide/devshell";
+    nixago.url = "github:nix-community/nixago";
+    nixago.inputs.nixpkgs.follows = "nixpkgs";
+    std = {
+      url = "github:divnix/std";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        devshell.follows = "devshell";
+        nixago.follows = "nixago";
+      };
     };
   };
 
-  outputs = {
-    nixpkgs,
-    flake-utils,
-    dream2nix,
-    ...
-  }: let
-    projectRoot = builtins.path {
-      path = ./.;
-      name = "projectRoot";
-    };
-
-    d2n-flake = dream2nix.lib.makeFlakeOutputs {
-      systems = flake-utils.lib.defaultSystems;
-      config.projectRoot = projectRoot;
-      source = projectRoot;
-      settings = [{subsystemInfo.nodejs = 18;}];
-    };
-  in
-    dream2nix.lib.dlib.mergeFlakes [
-      d2n-flake
-      (flake-utils.lib.eachDefaultSystem (
-        system: let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in {
-          devShells = {
-            default = d2n-flake.devShells.${system}.default.overrideAttrs (old: {
-              buildInputs =
-                old.buildInputs
-                ++ [
-                  # Formatters
-                  pkgs.treefmt
-                  pkgs.alejandra
-                  pkgs.nodePackages.prettier
-
-                  # Lint
-                  pkgs.editorconfig-checker
-                ];
-            });
-          };
-        }
-      ))
-    ];
+  outputs =
+    { self, std, ... }@inputs:
+    std.growOn
+      {
+        inherit inputs;
+        cellsFrom = self + "/nix";
+        cellBlocks = with std.blockTypes; [
+          (devshells "devshells")
+          (nixago "configs")
+          (installables "packages")
+        ];
+      }
+      {
+        packages = std.harvest self [
+          "graphit"
+          "packages"
+        ];
+        devShells = std.harvest self [
+          "repo"
+          "devshells"
+        ];
+      };
 }

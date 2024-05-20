@@ -11,3 +11,9 @@ yarn-error.log*
 .direnv
 result
 coverage
+
+# nixago: ignore-linked-files
+/treefmt.toml
+/lefthook.yml
+/.conform.yaml
+/.data/
