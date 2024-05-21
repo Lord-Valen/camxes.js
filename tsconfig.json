@@ -1,33 +1,24 @@
 {
-    "compilerOptions": {
-        "outDir": "dist",
-        "module": "CommonJS",
-        "moduleResolution": "Node",
-        "moduleDetection": "force",
-        "target": "ES6",
-        "lib": [
-            "ES6",
-            "dom"
-        ],
-        "types": [
-            "node",
-            "jest"
-        ],
-        "allowSyntheticDefaultImports": true,
-        "esModuleInterop": true,
-        "declaration": true,
-        "declarationMap": true,
-        "strict": true,
-        "noImplicitReturns": true,
-        "skipLibCheck": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
-    },
-    "include": [
-        "src/**/*.ts",
-        "src/**/*.peg"
-    ],
-    "exclude": [
-        "node_modules"
-    ]
+  "compilerOptions": {
+    "lib": ["es2022"],
+    "module": "es2022",
+    "target": "es2022",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true
+  }
 }

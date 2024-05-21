@@ -1,1 +1,1 @@
-export * from "./camxes";
+export * from "./camxes.ts";

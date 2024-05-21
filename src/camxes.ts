@@ -4,4 +4,7 @@ import path from "node:path";
 import PEG from "pegjs";
 
 // TODO: Redesign for peggy
-export const camxes = PEG.buildParser(readFileSync(path.join(__dirname, "/camxes.peg")).toString(), { cache: true });
+export const camxes = PEG.buildParser(
+  readFileSync(path.join(__dirname, "/camxes.peg")).toString(),
+  { cache: true },
+);
