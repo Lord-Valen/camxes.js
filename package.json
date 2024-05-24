@@ -8,7 +8,7 @@
     "dist"
   ],
   "type": "module",
-  "packageManager": "pnpm@*",
+  "packageManager": "pnpm@8",
   "main": "dist/index.cjs",
   "exports": {
     "import": "dist/index.js",
